@@ -1,0 +1,14 @@
+{
+    "workouts": [
+        {"type": "lunges", "calories": 100, "date": "", "time": 45, "userId": 1 },
+        {"type": "pushups", "calories": 100, "date": "", "time": 120, "userId": 1 },
+        {"type": "squats", "calories": 100, "date": "", "time": 10, "userId": 2 },
+        {"type": "burpees", "calories": 100, "date": "", "time": 20, "userId": 2 },
+        {"type": "planks", "calories": 100, "date": "", "time": 15, "userId": 2 },
+        {"type": "deadlifts", "calories": 100, "date": "", "time": 5, "userId": 3 },
+        {"type": "jumping jacks", "calories": 100, "date": "", "time": 30, "userId": 4 },
+        {"type": "jump rope", "calories": 100, "date": "", "time": 5, "userId": 4 },
+        {"type": "pull ups", "calories": 100, "date": "", "time": 1, "userId": 4 },
+        {"type": "jogging", "calories": 100, "date": "", "time": 25, "userId": 4 }
+    ]
+}
