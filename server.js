@@ -1,3 +1,4 @@
+const cors = require("cors")
 const express = require('express');
 const path = require('path');
 
@@ -8,6 +9,7 @@ const seed = require('./server/seed/seed.js');
 
 seed();
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
