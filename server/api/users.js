@@ -59,17 +59,17 @@ router.post('/:id/workout', async(req, res, next) => {
 })
 
 // PUT - update workout
-router.put('/workout/:id', async(req, res, next) => {
+router.put(':id/workout/:wid', async(req, res, next) => { // :wid - workout id
     try {
-        const updatedUser = req.body;
-        const id = req.params.id;
+        const { wid } = req.params;
+        const updatedWorkout = req.body;
 
-        const user = await User.update(updatedUser, {
+        const workout = await Workout.update(updatedWorkout, {
             where: {
-                id: id
+                id: wid
             }
         })
-        res.send(user, "Your account has been successfully updated")
+        res.send(workout, "Your account has been successfully updated")
     } catch(error) {
         console.log("error from put/users.js:", error)
         next(error)
@@ -77,5 +77,20 @@ router.put('/workout/:id', async(req, res, next) => {
 })
 
 // DELETE - delete workout
+router.delete(':id/workout/:wid', async (req, res) => {
+    try {
+        const { id, wid } = req.params;
+
+        // const user = await User.findByPk(id)
+        // CONFIRM THAT WHEN WORKOUT = DESTROYED, IT'S REMOVED FROM USER WORKOUTS
+        const workout = await Workout.findByPk(wid)
+        await workout.destroy()
+        res.send("Workout has been successfully deleted.")
+        // REDIRECT: IF ON ALL WORKOUTS PAGE DON'T REDIRECT, IF ON SINGLE WORKOUT PAGE REDIRECT
+    } catch(error) {
+        console.log("error from delete/users.js:", error)
+        next(error)
+    }
+})
 
 module.exports = router;
