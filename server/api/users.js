@@ -1,6 +1,21 @@
 const router = require('express').Router();
 const { User } = require('../model');
 
+
+//LOGIN ROUTE
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body
+  const user = await User.findOne({
+    where: {
+      email: email,
+      password: password
+    }
+  })
+
+  console.log(user)
+  res.json(user)
+})
+
 // GET - retrieve one user
 router.get('/:id', async(req,res) => {
     const id = req.params.id;
