@@ -1,32 +1,20 @@
-import { useState, useEffect } from 'react';
 import React from 'react';
 
-const Workout = (props) => {
-    const url = "http://localhost:3000/api/users"
-
-    const [workout, setWorkout] = useState(null)
-    
-    useEffect(() => {
-        handleFetch()
-    }, [])
-    
-    const handleFetch = () => {
-         fetch(`${url}/1`) // -------- HARD CODING USER ID --------
-            .then(res => res.json())
-            .then((data) => {
-                console.log("inside fetch:", data)
-                setWorkout(data.workouts[1]) // -------- HARD CODING WORKOUT --------
-            })
-    }
-
+const Workout = ({workout}) => {
     return (
         <div>
             {/* WON'T WORK W/OUT CHECKING IT EXISTS */}
             {/* NEED TO ADD LOADING STATE??? */}
-            {workout ? <h1>Date: {workout.date}</h1> : <h1></h1>}
-            {workout ? <h3>Calories Burned: {workout.calories}</h3> : <h3></h3>}
-            {workout ? <h3>Type: {workout.type}</h3> : <h3></h3>}
-            {workout ? <h3>Time: {workout.time} minutes</h3> : <h3></h3>}
+            {workout ? (
+                <>
+                <h1>Date: {workout.date}</h1>
+                <h1>Calories: {workout.calories}</h1>
+                <h1>Type: {workout.type}</h1>
+                <h1>Time: {workout.time}</h1>
+                </>
+            ) : (
+                <h1>"This workout no longer exists..."</h1>
+            )}
             <br/>
             {/* { MAY NOT BE NECESSARY TO ADD CONDITIONAL RENDERING BASED ON PAGE } */}
         </div>
