@@ -8,7 +8,7 @@ const Singleworkoutspage = () => {
     // Use the Wid & Uid from url to fetch it inside useEffect
     // Pass it down as prop to workout component
     
-    const url = "http://localhost:3000/api/users/"
+    const url = "http://localhost:3001/api/users/"
     // set workout state to pass it to Workout Component
     const [workout, setWorkout] = useState(null)
 
@@ -19,13 +19,16 @@ const Singleworkoutspage = () => {
     const handleFetch = () => {
         // BAD PRACTICE: RETRIEVING FROM URL
         const uid = window.location.pathname.split("/")[2]
-        const wid = window.location.pathname.split("/")[4]
+        const wid = parseInt(window.location.pathname.split("/")[4])
 
         fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
         .then(res => res.json())
         .then((data) => {
-            console.log("inside fetch:", data.workouts[wid])
-            setWorkout(data.workouts[wid]) // BEST WAY TO RETRIEVE THIS???
+            console.log("SW: inside fetch:", wid)
+            let w = data.workouts.filter(w => w.id === wid)[0]
+            console.log("SW: inside fetch:", w)
+            // need to iterate over data.workouts to find which object has the same id as wid
+            setWorkout(w) // BEST WAY TO RETRIEVE THIS???
         })
     }
 
@@ -43,6 +46,7 @@ const Singleworkoutspage = () => {
 
     return (
         <div>
+            <h1>SINGLE WORKOUT PAGE</h1>
             {console.log("hello")}
             <Workout workout={workout}/>
             <h3>WORKOUT FORM WOULD GO HERE (pass down handleUpdate & user/workout id)</h3>
