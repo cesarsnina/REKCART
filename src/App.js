@@ -37,13 +37,13 @@ const App = () => {
       <Routes>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />} />
-          <Route path='/singleworkpage' element={<SingleWorkoutsPage />} />
           <Route path='/filter' element={<Filter />} />
-          <Route path='/allworkpage' element={<AllWorkoutsPage />} />
           <Route path='/userpage' element={<UserPage />} />
           <Route path='/userpanel' element={<UserPanel />} />
-          <Route path='/workout' element={<Workout />} />
           <Route path='/workForm' element={<WorkoutForm />} />
+          <Route path='/users/:id/workouts' element={<AllWorkoutsPage />} />
+          <Route path='//users/:id/workouts/:wid' element={<SingleWorkoutsPage />} />
+          <Route path='/workout/:wid' element={<Workout />} />
       </Routes>
     </>
   );

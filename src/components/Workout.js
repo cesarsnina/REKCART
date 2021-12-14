@@ -22,10 +22,12 @@ const Workout = (props) => {
     return (
         <div>
             {/* WON'T WORK W/OUT CHECKING IT EXISTS */}
-            {workout ? <h1>Date: {workout.date}</h1> : <h1>""</h1>}
-            {workout ? <h3>Calories Burned: {workout.calories}</h3> : <h3>""</h3>}
-            {workout ? <h3>Type: {workout.type}</h3> : <h3>""</h3>}
-            {workout ? <h3>Time: {workout.time} minutes</h3> : <h3>""</h3>}
+            {/* NEED TO ADD LOADING STATE??? */}
+            {workout ? <h1>Date: {workout.date}</h1> : <h1></h1>}
+            {workout ? <h3>Calories Burned: {workout.calories}</h3> : <h3></h3>}
+            {workout ? <h3>Type: {workout.type}</h3> : <h3></h3>}
+            {workout ? <h3>Time: {workout.time} minutes</h3> : <h3></h3>}
+            <br/>
             {/* { MAY NOT BE NECESSARY TO ADD CONDITIONAL RENDERING BASED ON PAGE } */}
         </div>
     );
