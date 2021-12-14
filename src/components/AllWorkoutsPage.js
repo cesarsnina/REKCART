@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import Workout from './Workout';
-import { Link } from 'react-router-dom'
+import WorkoutForm from './WorkoutForm';
 
 const Allworkoutspage = () => {
     const url = "http://localhost:3001/api/users/" // :id/workouts
-    const uid = window.location.pathname.split("/")[2]
-    // set workout state to pass it to Workout Component
+    // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
+    const uid = window.location.pathname.split("/")[2] // BAD PRACTICE: RETRIEVING FROM URL
     const [workouts, setWorkouts] = useState(null)
 
     useEffect(() => {
@@ -14,9 +15,7 @@ const Allworkoutspage = () => {
     }, [])
     
     const handleFetch = () => {
-        // BAD PRACTICE: RETRIEVING FROM URL
-
-        fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
+        fetch(`${url}${uid}`)
         .then(res => res.json())
         .then((data) => {
             console.log("inside ALLW - handleFetch:", data.workouts)
@@ -27,12 +26,14 @@ const Allworkoutspage = () => {
     return (
         <div>
             <h1>ALL WORKOUTS PAGE</h1>
+            <WorkoutForm /> {/* WILL NEED TO PASS DOWN HANDLESUBMIT WHEN IT'S MOVED HERE */}
             {workouts ? (
                 workouts.map((w) => {
-                        console.log("inside map", w.id)
                     if (w) {
                         return (
-                            <Workout workout={w}/>
+                            <Link to={`${w.id}`}>
+                                <Workout workout={w}/>
+                            </Link>
                         )
                     }
                 })

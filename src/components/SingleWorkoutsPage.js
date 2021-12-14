@@ -7,6 +7,8 @@ const Singleworkoutspage = () => {
     // The url will hold the Wid and Uid
     // Use the Wid & Uid from url to fetch it inside useEffect
     // Pass it down as prop to workout component
+    const uid = window.location.pathname.split("/")[2]
+    const wid = parseInt(window.location.pathname.split("/")[4])
     
     const url = "http://localhost:3001/api/users/"
     // set workout state to pass it to Workout Component
@@ -18,8 +20,6 @@ const Singleworkoutspage = () => {
     
     const handleFetch = () => {
         // BAD PRACTICE: RETRIEVING FROM URL
-        const uid = window.location.pathname.split("/")[2]
-        const wid = parseInt(window.location.pathname.split("/")[4])
 
         fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
         .then(res => res.json())
@@ -40,6 +40,17 @@ const Singleworkoutspage = () => {
     const handleDelete = (e) => {
         // retrieve workout we're deleting
         // set new state
+        console.log("HELLO I'M INSIDE HANDLE DELETE")
+        const deleteMethod = {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        fetch(`${url}${uid}/workouts/${wid}`, deleteMethod)
+        .then(res => res.json())
+        .then(data => console.log("inside delete:", data))
     }
 
     // NEED WORKOUT FORM COMPONENT TO EDIT
@@ -49,6 +60,7 @@ const Singleworkoutspage = () => {
             <h1>SINGLE WORKOUT PAGE</h1>
             {console.log("hello")}
             <Workout workout={workout}/>
+            <button onClick={handleDelete}>Delete Workout</button>
             <h3>WORKOUT FORM WOULD GO HERE (pass down handleUpdate & user/workout id)</h3>
         </div>
     );
