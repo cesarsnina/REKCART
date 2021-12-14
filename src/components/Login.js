@@ -10,6 +10,15 @@ export default function RenderLoginPage() {
 
   const [submitted, setSubmitted] = useState(false)
 
+  //use this to refactor DRY code
+  // handleChange = (event) => {
+  //   const value = event.target.value;
+  //   this.setState({
+  //     ...this.state,
+  //     [event.target.name]: value,
+  //   });
+  // };
+
   const handleEmailInputChange = (event) => {
     event.persist()
     setValues((values) => ({
@@ -29,7 +38,9 @@ export default function RenderLoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-
+    const response = await fetch("http://localhost:3000/api/login")
+    const user = await response.json()
+    return user
   }
 
   return (
