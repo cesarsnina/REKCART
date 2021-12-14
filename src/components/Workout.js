@@ -1,32 +1,32 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
+import React from 'react';
 
 const Workout = (props) => {
-    const url = "localhost:3000/api/users/"
+    const url = "http://localhost:3000/api/users"
 
-    // set state - useState
-    const [workout, setWorkout] = useState()
-    const [user, setUser] = useState()
-
-    // fetch data - componentDidMount hook equivalent = useEffect
+    const [workout, setWorkout] = useState(null)
+    
     useEffect(() => {
-        // Runs once when component is initialized w/ default value
-        // AND runs each time state is updated
-        fetch("http://localhost:3000/api/users/1") // -------- HARD CODING USER ID AND WORKOUT ID FOR NOW --------
+        handleFetch()
+    }, [])
+    
+    const handleFetch = () => {
+         fetch(`${url}/1`) // -------- HARD CODING USER ID --------
             .then(res => res.json())
-            .then(data => console.log(data)) // setWorkout(data)
-    }, [user, workout]) 
-    // 2nd argument = array of dependencies
-    // if 2nd argument = empty array, will only run once - when component's initialized
-    // if 2nd argument = state, runs whenever state listed inside array is changed
+            .then((data) => {
+                console.log("inside fetch:", data)
+                setWorkout(data.workouts[1]) // -------- HARD CODING WORKOUT --------
+            })
+    }
 
     return (
         <div>
-            {/* {workout.type}
-            {workout.calories}
-            {workout.date}
-            {workout.time} */}
-            {/* { ADD CONDITIONAL RENDERING BASED ON PAGE } */}
+            {/* WON'T WORK W/OUT CHECKING IT EXISTS */}
+            {workout ? <h1>Date: {workout.date}</h1> : <h1>""</h1>}
+            {workout ? <h3>Calories Burned: {workout.calories}</h3> : <h3>""</h3>}
+            {workout ? <h3>Type: {workout.type}</h3> : <h3>""</h3>}
+            {workout ? <h3>Time: {workout.time} minutes</h3> : <h3>""</h3>}
+            {/* { MAY NOT BE NECESSARY TO ADD CONDITIONAL RENDERING BASED ON PAGE } */}
         </div>
     );
 }
@@ -34,3 +34,7 @@ const Workout = (props) => {
 export default Workout;
 
 
+// useEffect:
+// 2nd argument = array of dependencies
+// if 2nd argument = empty array, will only run once - when component's initialized
+// if 2nd argument = state, runs whenever state listed inside array is changed
