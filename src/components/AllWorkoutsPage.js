@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Workout from './Workout';
+import { Link } from 'react-router-dom'
 
 const Allworkoutspage = () => {
-    const url = "http://localhost:3000/api/users/"
+    const url = "http://localhost:3001/api/users/" // :id/workouts
+    const uid = window.location.pathname.split("/")[2]
     // set workout state to pass it to Workout Component
-    const [workout, setWorkout] = useState(null)
-    const [user, setUser] = useState(null)
+    const [workouts, setWorkouts] = useState(null)
 
     useEffect(() => {
         handleFetch()
@@ -14,19 +15,30 @@ const Allworkoutspage = () => {
     
     const handleFetch = () => {
         // BAD PRACTICE: RETRIEVING FROM URL
-        const uid = window.location.pathname.split("/")[2]
 
         fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
         .then(res => res.json())
         .then((data) => {
-            console.log("inside fetch:", data)
-            setUser(data)
+            console.log("inside ALLW - handleFetch:", data.workouts)
+            // data.workouts = (4) [{...}, {...}, {...}, {...}]
+            setWorkouts(data.workouts)
         })
     }
     return (
         <div>
-            {/* Iterate over all user's workouts */}
-            <Workout />
+            <h1>ALL WORKOUTS PAGE</h1>
+            {workouts ? (
+                workouts.map((w) => {
+                        console.log("inside map", w.id)
+                    if (w) {
+                        return (
+                            <Workout workout={w}/>
+                        )
+                    }
+                })
+            ) : (
+                <h1></h1>
+            )}
         </div>
     );
 }
