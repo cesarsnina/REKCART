@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from "./UserContext.js"
+import { useNavigate } from "react-router-dom"
 
 
-export default function RenderLoginPage() {
+const RenderLoginPage = () => {
+  const {globalUser, setGlobalUser} = useContext(UserContext)
 
   const [values, setValues] = useState({
     email: '',
@@ -9,6 +12,8 @@ export default function RenderLoginPage() {
   })
 
   const [submitted, setSubmitted] = useState(false)
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
 
   //use this to refactor DRY code
   // handleChange = (event) => {
@@ -35,27 +40,53 @@ export default function RenderLoginPage() {
     }))
   }
 
-  const handleSubmit = async (event) => {
+  const HandleSubmit = async (event) => {
     event.preventDefault()
+    const credentials = {
+      email: values.email,
+      password: values.password
+    }
 
-    const response = await fetch("http://localhost:3000/api/login")
-    const user = await response.json()
-    return user
+    const user = await fetch(`http://localhost:3001/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(response => response.json())
+      .then(data => {
+        return data
+      })
+
+      console.log(user)
+      setGlobalUser(user)
+      console.log(globalUser)
+      // storeUser(user)
+      // navigate('/userpage')
+  }
+
+  const storeUser = async (user) => {
+    setGlobalUser(user)
+    console.log(globalUser)
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeHodler="Your Email" value={values.email} onChange={handleEmailInputChange}/>
+      <form onSubmit={HandleSubmit}>
+        <input type="email" name="email" placeHodler="Your Email" value={values.email} onChange={handleEmailInputChange} required/>
         {submitted && !values.name && <span>Please enter an email</span>}
-        <input type="password" name="password" placeHodler="Your Password" value={values.password} onChange={handlePasswordChange}/>
+        <input type="password" name="password" placeHodler="Your Password" value={values.password} onChange={handlePasswordChange} required/>
         <span>Please enter a password</span>
         <button type="submit">Log In</button>
       </form>
-      <form onSubmit={renderSubmitForm}>
+      <p>{globalUser.email}</p>
+      {/* <form onSubmit={renderSubmitForm}>
         <button type="submit">Create Account</button>
-      </form>
+      </form> */}
     </>
   )
 
 }
+
+export default RenderLoginPage
