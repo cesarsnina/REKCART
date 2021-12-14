@@ -30,9 +30,9 @@ const UserPage = () => {
     return (
         <div>
             <UserPanel user={user} />
-            {/* <WorkoutForm />
+            <WorkoutForm />
             <Link to='/workouts'> <Button>All Workout!</Button> </Link>
-            <Workout workout={workout}/> */}
+            <Workout workout={workout[0]}/>
         </div>
     );
 }
