@@ -4,8 +4,16 @@ const { User } = require('../model');
 
 //LOGIN ROUTE
 router.post('/login', async (req, res) => {
-  console.log(req.body)
-  // const user = User.findByPk(req.body)
+  const { email, password } = req.body
+  const user = await User.findOne({
+    where: {
+      email: email,
+      password: password
+    }
+  })
+
+  console.log(user)
+  res.json(user)
 })
 
 // GET - retrieve one user
