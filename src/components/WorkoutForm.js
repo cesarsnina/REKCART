@@ -17,6 +17,10 @@ const WorkoutForm = () => {
     time: ''
   });
 
+  const editValues = {
+    type: 'HIIT'
+  }
+
   const handleSubmit = (e) => {
     // e.preventDefault();
     // const workout = { type, calories, date, time };
@@ -58,13 +62,12 @@ const WorkoutForm = () => {
       <h2>Edit Workout</h2>
       <form onSubmit={handleSubmit}>
         <label>Type:</label>
-        <input
-          name="type" 
-          type="text" 
-          required
-          value='{values.type}'
-          onChange={handleChange}
-        />
+        <select name="type" placeholder={editValues.type} value={values.type} onChange={handleChange}>
+          <option value="Weight-Lifting">Weight Lifting</option>
+          <option value="Running">Running</option>
+          <option value="Walking">Walking</option>
+          <option value="HIIT">HIIT</option>
+        </select>
          <label>Calories:</label>
         <input 
           name="calories"
