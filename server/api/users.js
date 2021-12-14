@@ -1,6 +1,13 @@
 const router = require('express').Router();
 const { User } = require('../model');
 
+
+//LOGIN ROUTE
+router.post('/login', async (req, res) => {
+  console.log(req.body)
+  // const user = User.findByPk(req.body)
+})
+
 // GET - retrieve one user
 router.get('/:id', async(req,res) => {
     const id = req.params.id;
