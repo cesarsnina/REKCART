@@ -43,7 +43,7 @@ const App = () => {
           <Route path='/userpanel' element={<UserPanel />} />
           <Route path='/workForm' element={<WorkoutForm />} />
           <Route path='/users/:id/workouts' element={<AllWorkoutsPage />} />
-          <Route path='//users/:id/workouts/:wid' element={<SingleWorkoutsPage />} />
+          <Route path='/users/:id/workouts/:wid' element={<SingleWorkoutsPage />} />
           <Route path='/workout/:wid' element={<Workout />} />
       </Routes>
     </>
