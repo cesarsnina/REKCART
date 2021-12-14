@@ -7,6 +7,9 @@ const WorkoutForm = () => {
   const [isPending, setIsPending] = useState(false);
   // const history = useHistory();   ---- requires npm i react-router-dom
 
+  const [isEditing, setIsEditing] = useState(false);
+  // obtain sent values from edit window -> load new workout and use values to pre fill form 
+
   const [values, setValues] = useState({
     type: '',
     calories: '',
@@ -34,30 +37,77 @@ const WorkoutForm = () => {
     })
   };
 
-  const handleChange = (e) => {
+  const handleChange = (event) => {
     // e.persist()
     setValues((values) => ({
       ...values,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     }))
   }  
 
-  return (
+  const handleUpdate = (event) => {
+    fetch(``)
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data.values)
+    })
+  }
+
+  return isEditing ? (
     <div class="workout-form">
-      <h2>Add a New Workout</h2>
+      <h2>Edit Workout</h2>
       <form onSubmit={handleSubmit}>
         <label>Type:</label>
         <input
           name="type" 
           type="text" 
           required
-          value={values.type}
+          value='{values.type}'
           onChange={handleChange}
         />
          <label>Calories:</label>
         <input 
           name="calories"
-          type="text" 
+          type="number" 
+          required
+          value='{!isEditing values.calories}'
+          onChange={handleChange}
+        />
+        <label>Date:</label>
+        <input 
+          name="date"
+          type="date" 
+          required
+          value='{values.date}'
+          onChange={handleChange}
+        />
+        <label>Time Elapsed:</label>
+        <input 
+          name="time"
+          type="number" 
+          required
+          value='{values.time}'
+          onChange={handleChange}
+        />
+        { !isPending && <button>Add Workout</button> }
+        { isPending && <button disabled>Adding Workout...</button> }
+      </form>
+    </div>
+  ) : (
+    <div class="workout-form">
+      <h2>Add a New Workout</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Type:</label>
+        <select name="type" value={values.type} onChange={handleChange}>
+          <option value="Weight-Lifting">Weight Lifting</option>
+          <option value="Running">Running</option>
+          <option value="Walking">Walking</option>
+          <option value="HIIT">HIIT</option>
+        </select>
+         <label>Calories:</label>
+        <input 
+          name="calories"
+          type="number" 
           required
           value={values.calories}
           onChange={handleChange}
@@ -65,7 +115,7 @@ const WorkoutForm = () => {
         <label>Date:</label>
         <input 
           name="date"
-          type="text" 
+          type="date" 
           required
           value={values.date}
           onChange={handleChange}
@@ -73,11 +123,12 @@ const WorkoutForm = () => {
         <label>Time Elapsed:</label>
         <input 
           name="time"
-          type="text" 
+          type="number" 
           required
           value={values.time}
           onChange={handleChange}
         />
+        
         { !isPending && <button>Add Workout</button> }
         { isPending && <button disabled>Adding Workout...</button> }
       </form>
@@ -86,5 +137,3 @@ const WorkoutForm = () => {
 };
 
 export default WorkoutForm;
-
-
