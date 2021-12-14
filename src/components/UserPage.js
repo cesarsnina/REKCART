@@ -17,7 +17,7 @@ const UserPage = () => {
 
     const fetchWorkout = async () => {
         try {
-            const id = 2;
+            const id = 2; // remove this id when routes are properly working
             const response = await fetch(`http://localhost:3001/api/users/${id}`);
             const data = await response.json();
             setUser(data.user);
@@ -29,11 +29,10 @@ const UserPage = () => {
 
     return (
         <div>
-            <h1> this is UserPage</h1>
             <UserPanel user={user} />
-            <WorkoutForm />
+            {/* <WorkoutForm />
             <Link to='/workouts'> <Button>All Workout!</Button> </Link>
-            <Workout workout={workout}/>
+            <Workout workout={workout}/> */}
         </div>
     );
 }
