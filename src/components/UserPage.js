@@ -36,10 +36,7 @@ const UserPage = () => {
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col><WorkoutForm /></Col>
-            </Row>
-            <Row>
-                <Col><Link to='/workouts'> <Button>All Workout!</Button> </Link></Col>
+                <Col><Link to='/users/:id/workouts/:wid'> <Button>All Workout!</Button> </Link></Col>
             </Row>
             <Row>
                 <Col><Workout workout={workout[0]}/></Col>

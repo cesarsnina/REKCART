@@ -25,7 +25,10 @@ User.init({
             notEmpty: true
         }
     },
-    color: DataTypes.STRING,
+    color: {
+      type: DataTypes.STRING,
+      defaultValue: 'blue'
+    },
     image: DataTypes.STRING
 },{
     sequelize: db,
