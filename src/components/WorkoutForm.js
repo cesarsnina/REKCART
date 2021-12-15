@@ -1,17 +1,6 @@
 import React from 'react';
-import { useState }  from 'react';
-// import { useHistory } from 'react-router-dom';     ---- requires npm i react-router-dom
 
 const WorkoutForm = (props) => {
-  const handleUpdate = (event) => {
-    fetch(``)
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data.values)
-    })
-  }
-
-
   return (
     <div class="workout-form">
         <h2>{props.heading}</h2>
