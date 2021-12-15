@@ -30,8 +30,8 @@ const UserPage = () => {
     return (
         <div>
             <UserPanel user={user} />
-            <WorkoutForm />
-            <Link to='/workouts'> <Button>All Workout!</Button> </Link>
+            {/* Link address needs to be changed to users/:id/workouts/:wid*/}
+            <Link to='/workouts'> <Button>All Workouts!</Button> </Link>
             <Workout workout={workout[0]}/>
         </div>
     );
