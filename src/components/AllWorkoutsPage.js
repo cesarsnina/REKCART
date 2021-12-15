@@ -7,7 +7,7 @@ import WorkoutForm from './WorkoutForm';
 const Allworkoutspage = () => {
     const url = "http://localhost:3001/api/users/" // :id/workouts
     // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
-    const uid = window.location.pathname.split("/")[2] // BAD PRACTICE: RETRIEVING FROM URL
+    const uid = parseInt(window.location.pathname.split("/")[2]) // BAD PRACTICE: RETRIEVING FROM URL
     
     const [workouts, setWorkouts] = useState(null)
     const [isPending, setIsPending] = useState(false);
@@ -21,12 +21,13 @@ const Allworkoutspage = () => {
 
     useEffect(() => {
         handleFetch()
-    }, [])
+    }, []) // Do I need to add a dependency?
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
         .then(res => res.json())
         .then((data) => {
+            console.log("url:", `${url}${uid}/workout`)
             console.log("inside ALLW - handleFetch:", data.workouts)
             // data.workouts = (4) [{...}, {...}, {...}, {...}]
             setWorkouts(data.workouts)
@@ -43,10 +44,10 @@ const Allworkoutspage = () => {
 
     const handleCreate = (e) => {
         console.log("HI FROM HANDLECREATE")
-        console.log(`${url}${uid}/workout`)
+
         const createMethod = {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values)
         }   
 

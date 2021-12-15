@@ -1,19 +1,19 @@
 const router = require('express').Router();
-const { User } = require('../model');
+const { User, Workout } = require('../model');
 
 
 //POST - login user
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body
-  const user = await User.findOne({
-    where: {
-      email: email,
-      password: password
-    }
-  })
+    const { email, password } = req.body
+    const user = await User.findOne({
+        where: {
+        email: email,
+        password: password
+        }
+    })
 
-  console.log(user)
-  res.json(user)
+    console.log(user)
+    res.json(user)
 })
 
 // GET - retrieve one user
@@ -30,7 +30,7 @@ router.get('/:id', async(req,res) => {
 // MAKE SURE TO IMPLEMENT REDIRECT FEATURE FOR BOTH POST AND PUT (SEE PUT)
 // POST - create user
 router.post('/create-account', async (req, res, next) => {
-  console.log(req.body)
+    console.log(req.body)
     try {
         const user = await User.create(req.body)
         res.send("You have successfully created your account :).")
@@ -64,7 +64,7 @@ router.post('/:id/workout', async(req, res, next) => {
     try {
         const id = req.params.id;
         let user = await User.findByPk(id);
-
+        
         const workout = await Workout.create(req.body)
         await user.addWorkout(workout)
 
