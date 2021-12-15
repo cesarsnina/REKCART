@@ -27,9 +27,7 @@ const Singleworkoutspage = () => {
         fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
         .then(res => res.json())
         .then((data) => {
-            console.log("SW: inside fetch:", wid)
             let w = data.workouts.filter(w => w.id === wid)[0]
-            console.log("SW: inside fetch:", w)
             // need to iterate over data.workouts to find which object has the same id as wid
             setWorkout(w) // BEST WAY TO RETRIEVE THIS???
             setValues(w)
@@ -38,7 +36,17 @@ const Singleworkoutspage = () => {
 
     // NEED handleUpdate method
     const handleUpdate = (e) => {
-        
+        console.log("HI FROM HANDLEUPDATE")
+
+        const updateMethod = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values)
+        }   
+
+        fetch(`${url}${uid}/workout`, updateMethod)
+        .then(res => res.json())
+        .then(data => setWorkout(data))
     }
     // NEED handleDelete method
     const handleDelete = (e) => {
@@ -55,6 +63,8 @@ const Singleworkoutspage = () => {
         fetch(`${url}${uid}/workouts/${wid}`, deleteMethod)
         .then(res => res.json())
         .then(data => console.log("inside delete:", data))
+
+        // redirect to all workouts page once deleted
     }
 
     const handleChange = (event) => {
@@ -77,7 +87,6 @@ const Singleworkoutspage = () => {
                 handleChange={handleChange}
                 values={values}
             /> 
-            {console.log("hello")}
             <Workout workout={workout}/>
             <button onClick={handleDelete}>Delete Workout</button>
             <h3>WORKOUT FORM WOULD GO HERE (pass down handleUpdate & user/workout id)</h3>

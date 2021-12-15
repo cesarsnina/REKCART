@@ -3,7 +3,6 @@ import React from 'react';
 const Workout = ({workout}) => {
     return (
         <div>
-            {/* WON'T WORK W/OUT CHECKING IT EXISTS */}
             {/* NEED TO ADD LOADING STATE??? */}
             {workout ? (
                 <>
