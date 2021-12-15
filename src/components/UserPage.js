@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
+import { UserContext } from './UserContext'
 import UserPanel from './UserPanel';
 import WorkoutForm from './WorkoutForm';
 import Workout from './Workout';
@@ -9,6 +10,7 @@ import Workout from './Workout';
 const UserPage = () => {
     const [user, setUser] = useState({});
     const [workout, setWorkout] = useState([]);
+    const {globalUser, setGlobalUser} = useContext(UserContext)
     const { id } = useParams();
 
     useEffect(() => {
