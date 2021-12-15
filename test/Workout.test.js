@@ -28,7 +28,6 @@ describe('Test Workout model', () => {
         name: user.name
       }
     })
-    console.log(await Workout.findAll())
     // await user.addWorkout(newWork);
     let findUserID = await Workout.findAll({
       where: {
