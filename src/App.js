@@ -9,7 +9,7 @@ import UserPanel from './components/UserPanel';
 import Workout from './components/Workout';
 import WorkoutForm from './components/WorkoutForm';
 import UserPage from './components/UserPage';
-import {UserContext} from './components/UserContext.js'
+import {UserContext, FilterQueryContext} from './components/UserContext.js'
 
 
 import './App.css';
@@ -33,9 +33,11 @@ const Header = () => {
 
 const App = () => {
   const [globalUser, setGlobalUser] = useState('state from app')
+  const [globalFilterQuery, setGlobalFilterQuery] = useState('')
   return (
     <>
     <UserContext.Provider value ={{globalUser, setGlobalUser}}>
+    <FilterQueryContext.Provider value = {{globalFilterQuery, setGlobalFilterQuery}}>
       <Header />
       <Routes>
           <Route path='/' element={<UserPage />} />
@@ -49,6 +51,7 @@ const App = () => {
           <Route path='/users/:id/workouts/:wid' element={<SingleWorkoutsPage />} />
           <Route path='/workout/:wid' element={<Workout />} />
       </Routes>
+      </FilterQueryContext.Provider>
       </UserContext.Provider>
     </>
   );

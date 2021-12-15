@@ -21,14 +21,14 @@ const RenderLoginPage = () => {
     });
   };
 
-  const HandleSubmit = (event) => {
+  const HandleSubmit = async (event) => {
     event.preventDefault()
     const credentials = {
       email: values.email,
       password: values.password
     }
 
-    const user = fetch(`http://localhost:3001/api/users/login`, {
+    const user = await fetch(`http://localhost:3001/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -39,7 +39,6 @@ const RenderLoginPage = () => {
       .then(data => {
         return data
       })
-
       setGlobalUser(user)
       navigate('/userpage')
   }
