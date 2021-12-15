@@ -11,13 +11,7 @@ router.post('/login', async (req, res) => {
         password: password
         }
     })
-
-<<<<<<< HEAD
-    console.log(user)
     res.json(user)
-=======
-  res.json(user)
->>>>>>> 2cc55a9 (removed a few console logs, added one console log)
 })
 
 // GET - retrieve one user
