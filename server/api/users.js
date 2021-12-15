@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../model');
+const { User, Workout } = require('../model');
 
 
 //POST - login user
@@ -76,7 +76,7 @@ router.post('/:id/workout', async(req, res, next) => {
 })
 
 // PUT - update workout
-router.put(':id/workout/:wid', async(req, res, next) => { // :wid - workout id
+router.put('/:id/workout/:wid', async(req, res, next) => { // :wid - workout id
     try {
         const { wid } = req.params;
         const updatedWorkout = req.body;

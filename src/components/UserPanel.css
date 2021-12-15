@@ -1,3 +1,13 @@
-h1.welcome-panel {
-    margin-bottom: 100 px;
+.container-background {
+    background-color: white;
+}
+
+.welcome-panel {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+img.welcome-panel {
+    height: 300px;
+    width: 300px;
 }
