@@ -8,7 +8,16 @@ const Allworkoutspage = () => {
     const url = "http://localhost:3001/api/users/" // :id/workouts
     // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
     const uid = window.location.pathname.split("/")[2] // BAD PRACTICE: RETRIEVING FROM URL
+    
     const [workouts, setWorkouts] = useState(null)
+    const [isPending, setIsPending] = useState(false);
+
+    const [values, setValues] = useState({
+        type: '',
+        calories: '',
+        date: undefined,
+        time: ''
+    });
 
     useEffect(() => {
         handleFetch()
@@ -23,10 +32,39 @@ const Allworkoutspage = () => {
             setWorkouts(data.workouts)
         })
     }
+
+    const handleChange = (event) => {
+        setValues((values) => ({
+            ...values,
+            [event.target.name]: event.target.value
+        }))
+        console.log("inside handleChange:", event.target.value)
+    }  
+
+    const handleCreate = (e) => {
+        console.log("HI FROM HANDLECREATE")
+        console.log(`${url}${uid}/workout`)
+        const createMethod = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values)
+        }   
+
+        fetch(`${url}${uid}/workout`, createMethod)
+        .then(res => res.json())
+        .then(data => setWorkouts(data))
+    };
+
     return (
         <div>
             <h1>ALL WORKOUTS PAGE</h1>
-            <WorkoutForm /> {/* WILL NEED TO PASS DOWN HANDLESUBMIT WHEN IT'S MOVED HERE */}
+            <WorkoutForm 
+                heading={"Add Workout"} 
+                submit={handleCreate} 
+                handleChange={handleChange}
+                isPending={isPending}
+                values={values}
+            />
             {workouts ? (
                 workouts.map((w) => {
                     if (w) {
