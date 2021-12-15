@@ -1,15 +1,15 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom"
+import { Table } from 'react-bootstrap';
+
+import { UserContext } from './UserContext'
 import Workout from './Workout';
 import WorkoutForm from './WorkoutForm';
 
 const Singleworkoutspage = () => {
-
-    const url = "http://localhost:3001/api/users/"
-    const uid = parseInt(window.location.pathname.split("/")[2])
-    const wid = parseInt(window.location.pathname.split("/")[4])
     const navigate = useNavigate()
+    const { globalUser, setGlobalUser } = useContext(UserContext)
     const [workout, setWorkout] = useState(null)
     const [values, setValues] = useState({
         type: '',
@@ -17,22 +17,22 @@ const Singleworkoutspage = () => {
         date: undefined,
         time: ''
     });
+    const url = "http://localhost:3001/api/users/"
+    const uid = parseInt(window.location.pathname.split("/")[2]) // CAN'T SET THIS UP AS GLOBAL STATE YET
+    const wid = parseInt(window.location.pathname.split("/")[4])
     
 
     useEffect(() => {
         handleFetch()
-        console.log("delete:", `${url}${uid}/workout/${wid}`)
-    }, []) // SHOULD I ADD WORKOUT AS A DEPENDENCY?
+        console.log("global user:", globalUser)
+    }, [])
     
     const handleFetch = () => {
-        // BAD PRACTICE: RETRIEVING FROM URL
-
-        fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
+        fetch(`${url}${uid}`)
         .then(res => res.json())
         .then((data) => {
             let w = data.workouts.filter(w => w.id === wid)[0]
-            // need to iterate over data.workouts to find which object has the same id as wid
-            setWorkout(w) // BEST WAY TO RETRIEVE THIS???
+            setWorkout(w)
             setValues(w)
         })
     }
@@ -86,7 +86,19 @@ const Singleworkoutspage = () => {
                 handleChange={handleChange}
                 values={values}
             /> 
-            <Workout workout={workout}/>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Calories</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <Workout workout={workout}/>
+                </tbody>
+            </Table>
             <button onClick={handleDelete}>Delete Workout</button>
         </div>
     );
