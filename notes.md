@@ -6,13 +6,17 @@ Jazmin - Workout.js, SingleWorkoutsPage.js (if everyone is not done yet - AllWor
 All functional components & hooks. No class components.
 
 12/15
-Fix handleUpdate (SingleWorkoutsPage)
-Finish handleDelete in (SingleWorkoutsPage)
-Add globalUser in all pages
-Fix formatting of date
-Set up Filter functionality
+Add globalUser in all pages (All of us)
+Fix formatting of date (Eric)
+Set up Filter functionality (Danny)
+User needs to be able to change their color & image (edit form on UserPage) (Cesar)
+Create tests
 
-Add styling
+Add styling (Cesar)
 
 Remove console.logs
 Remove unnecessary code
+
+
+Presentation:
+How did we handle working on time constraints

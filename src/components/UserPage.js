@@ -20,7 +20,7 @@ const UserPage = () => {
 
     const fetchWorkout = async () => {
         try {
-            const id = 5; // remove this id when routes are properly working
+            const id = 4; // remove this id when routes are properly working
             const response = await fetch(`http://localhost:3001/api/users/${id}`);
             const data = await response.json();
             setUser(data.user);
