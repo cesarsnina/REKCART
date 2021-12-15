@@ -1,19 +1,23 @@
 import React from 'react';
 import { Image, Container, Row, Col } from 'react-bootstrap';
 
+import './UserPanel.css';
+
 const UserPanel = (props) => {
+    const { name, image } = props.user;
+
     return (
         <Container>
-        <Row>
-            <Col xs={6} md={4}>
-                <h1>Welcome, {props.user.name}!</h1>
-            </Col>
-        </Row>
-        <Row>
-            <Col xs={6} md={4}>
-                <Image src={props.user.image} rounded />
-            </Col>
-        </Row>
+            <Row className="justify-content-md-center">
+                <Col md="auto">
+                    <h1 className="welcome-panel">Welcome to REKCART, {name}!</h1>
+                </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+                <Col md="auto">
+                    <Image src={image} rounded className="welcome-panel"/>
+                </Col>
+            </Row>
         </Container>
     );
 }
