@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom"
 import Workout from './Workout';
 import WorkoutForm from './WorkoutForm';
 
 const Singleworkoutspage = () => {
 
     const url = "http://localhost:3001/api/users/"
-    const uid = window.location.pathname.split("/")[2]
+    const uid = parseInt(window.location.pathname.split("/")[2])
     const wid = parseInt(window.location.pathname.split("/")[4])
+    const navigate = useNavigate()
     const [workout, setWorkout] = useState(null)
     const [values, setValues] = useState({
         type: '',
@@ -19,6 +21,7 @@ const Singleworkoutspage = () => {
 
     useEffect(() => {
         handleFetch()
+        console.log("delete:", `${url}${uid}/workout/${wid}`)
     }, []) // SHOULD I ADD WORKOUT AS A DEPENDENCY?
     
     const handleFetch = () => {
@@ -34,24 +37,30 @@ const Singleworkoutspage = () => {
         })
     }
 
-    // NEED handleUpdate method
+    const handleChange = (event) => {
+        setValues((values) => ({
+            ...values,
+            [event.target.name]: event.target.value
+        }))
+        console.log("inside handleChange:", event.target.value)
+    } 
+    
+    
     const handleUpdate = (e) => {
         console.log("HI FROM HANDLEUPDATE")
-
+        
         const updateMethod = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values)
         }   
-
-        fetch(`${url}${uid}/workout`, updateMethod)
+        console.log("INSIDE HANDLEUPDATE:", updateMethod.body)
+        fetch(`${url}${uid}/workout/${wid}`, updateMethod)
         .then(res => res.json())
         .then(data => setWorkout(data))
     }
-    // NEED handleDelete method
+    
     const handleDelete = (e) => {
-        // retrieve workout we're deleting
-        // set new state
         console.log("HELLO I'M INSIDE HANDLE DELETE")
         const deleteMethod = {
             method: 'DELETE',
@@ -59,23 +68,13 @@ const Singleworkoutspage = () => {
                 'Content-type': 'application/json'
             }
         }
-
-        fetch(`${url}${uid}/workouts/${wid}`, deleteMethod)
+        
+        fetch(`${url}${uid}/workout/${wid}`, deleteMethod)
         .then(res => res.json())
         .then(data => console.log("inside delete:", data))
-
-        // redirect to all workouts page once deleted
+        
+        navigate('/')
     }
-
-    const handleChange = (event) => {
-        setValues((values) => ({
-            ...values,
-            [event.target.name]: event.target.value
-        }))
-        console.log("inside handleChange:", event.target.value)
-    }  
-
-    // NEED WORKOUT FORM COMPONENT TO EDIT
 
     return (
         <div>
@@ -89,7 +88,6 @@ const Singleworkoutspage = () => {
             /> 
             <Workout workout={workout}/>
             <button onClick={handleDelete}>Delete Workout</button>
-            <h3>WORKOUT FORM WOULD GO HERE (pass down handleUpdate & user/workout id)</h3>
         </div>
     );
 }
