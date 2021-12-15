@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User } = require('../model');
 
 
-//LOGIN ROUTE
+//POST - login user
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
   const user = await User.findOne({
@@ -29,12 +29,14 @@ router.get('/:id', async(req,res) => {
 
 // MAKE SURE TO IMPLEMENT REDIRECT FEATURE FOR BOTH POST AND PUT (SEE PUT)
 // POST - create user
-router.post('/', async(req, res, next) => {
+router.post('/create-account', async (req, res, next) => {
+  console.log(req.body)
     try {
         const user = await User.create(req.body)
-        res.send(user, "You have successfully created your account :).")
+        res.send("You have successfully created your account :).")
     } catch (error) {
         console.log("error from post/users.js:", error)
+        res.send("Could not create account at this time")
         next(error)
     }
 })
