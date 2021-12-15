@@ -1,18 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Workout from './Workout';
+import WorkoutForm from './WorkoutForm';
 
 const Singleworkoutspage = () => {
-    // User will get to this page via a link in UserPage, AllWorkoutsPage, or SingleWorkoutPage
-    // The url will hold the Wid and Uid
-    // Use the Wid & Uid from url to fetch it inside useEffect
-    // Pass it down as prop to workout component
+
+    const url = "http://localhost:3001/api/users/"
     const uid = window.location.pathname.split("/")[2]
     const wid = parseInt(window.location.pathname.split("/")[4])
-    
-    const url = "http://localhost:3001/api/users/"
-    // set workout state to pass it to Workout Component
     const [workout, setWorkout] = useState(null)
+    const [values, setValues] = useState({
+        type: '',
+        calories: '',
+        date: undefined,
+        time: ''
+    });
+    
 
     useEffect(() => {
         handleFetch()
@@ -29,6 +32,7 @@ const Singleworkoutspage = () => {
             console.log("SW: inside fetch:", w)
             // need to iterate over data.workouts to find which object has the same id as wid
             setWorkout(w) // BEST WAY TO RETRIEVE THIS???
+            setValues(w)
         })
     }
 
@@ -53,11 +57,26 @@ const Singleworkoutspage = () => {
         .then(data => console.log("inside delete:", data))
     }
 
+    const handleChange = (event) => {
+        setValues((values) => ({
+            ...values,
+            [event.target.name]: event.target.value
+        }))
+        console.log("inside handleChange:", event.target.value)
+    }  
+
     // NEED WORKOUT FORM COMPONENT TO EDIT
 
     return (
         <div>
             <h1>SINGLE WORKOUT PAGE</h1>
+            <WorkoutForm 
+                wid={wid}
+                heading={"Edit Workout"} 
+                submit={handleUpdate} 
+                handleChange={handleChange}
+                values={values}
+            /> 
             {console.log("hello")}
             <Workout workout={workout}/>
             <button onClick={handleDelete}>Delete Workout</button>

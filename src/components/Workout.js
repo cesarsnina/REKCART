@@ -5,7 +5,6 @@ const Workout = ({workout}) => {
         <div>
             {/* WON'T WORK W/OUT CHECKING IT EXISTS */}
             {/* NEED TO ADD LOADING STATE??? */}
-            {console.log("Inside workout:", workout)}
             {workout ? (
                 <>
                     <h1>Date: {workout.date}</h1>
