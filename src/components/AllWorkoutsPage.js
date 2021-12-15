@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Table } from 'react-bootstrap';
+
 import Workout from './Workout';
 import WorkoutForm from './WorkoutForm';
 
@@ -30,7 +31,10 @@ const Allworkoutspage = () => {
             console.log("url:", `${url}${uid}/workout`)
             console.log("inside ALLW - handleFetch:", data.workouts)
             // data.workouts = (4) [{...}, {...}, {...}, {...}]
+            // if filterQuery === null
             setWorkouts(data.workouts)
+            // else 
+            // data.workouts.filer(workout => workout.type === filterQuery)
         })
     }
 
@@ -67,20 +71,33 @@ const Allworkoutspage = () => {
                 values={values}
             />
             {workouts ? (
-                workouts.map((w) => {
-                    if (w) {
-                        return (
-                            <Link to={`${w.id}`}>
-                                <Workout workout={w}/>
-                            </Link>
-                        )
-                    }
-                })
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Calories</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {workouts.map((w) => {
+                            return (
+                                <Link to={`${w.id}`}>
+                                    <Workout workout={w}/>
+                                    {console.log("insidetable:", w)}
+                                </Link>
+                            )
+                        })}
+                    </tbody>
+                </Table>
             ) : (
-                <h1></h1>
+                <h1>You have not added any workout!</h1>
             )}
         </div>
     );
 }
 
 export default Allworkoutspage;
+
+
