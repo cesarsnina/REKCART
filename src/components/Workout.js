@@ -1,15 +1,18 @@
 import React from 'react';
+import Moment from 'moment';
 
 const Workout = ({workout}) => {
+
     return (
         <div>
-            {/* NEED TO ADD LOADING STATE??? */}
             {workout ? (
                 <>
-                    <h1>Date: {workout.date}</h1>
-                    <h1>Calories: {workout.calories}</h1>
-                    <h1>Type: {workout.type}</h1>
-                    <h1>Time: {workout.time}</h1>
+                    <tr key={workout.id}>
+                        <td>{Moment(workout.date).format('mm-dd-yyyy')}</td>
+                        <td>{workout.type}</td>
+                        <td>{workout.calories}</td>
+                        <td>{workout.time}</td>
+                    </tr>
                 </>
             ) : (
                 <h1>"This workout no longer exists..."</h1>
