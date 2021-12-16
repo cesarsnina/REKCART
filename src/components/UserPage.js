@@ -37,7 +37,7 @@ const UserPage = () => {
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col><Link to={`/users/${globalUser.id}/workouts/`}> <Button>View All My Workouts!</Button> </Link></Col>
+                <Col><Link to={`/users/${globalUser.id}/workouts/`}> <Button>View All My Workouts</Button> </Link></Col>
             </Row>
             <Row>
                 <Col><Workout workout={workout[0]}/></Col>

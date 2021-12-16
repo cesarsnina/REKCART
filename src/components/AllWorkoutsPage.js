@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext, FilterQueryContext } from "./UserContext.js"
+import { useNavigate } from "react-router-dom"
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import  Filter  from "./Filter"
@@ -8,8 +9,9 @@ import Workout from './Workout';
 import WorkoutForm from './WorkoutForm';
 
 const Allworkoutspage = () => {
-  const {globalUser, setGlobalUser} = useContext(UserContext)
-  const {globalFilterQuery, setGlobalFilterQuery} = useContext(FilterQueryContext)
+    const navigate = useNavigate()
+    const {globalUser, setGlobalUser} = useContext(UserContext)
+    const {globalFilterQuery, setGlobalFilterQuery} = useContext(FilterQueryContext)
 
     const url = "http://localhost:3001/api/users/" // :id/workouts
     // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
@@ -34,7 +36,7 @@ const Allworkoutspage = () => {
         fetch(`${url}${uid}`)
         .then(res => res.json())
         .then((data) => {
-          console.log("INSIDE FETCH", data.workouts)
+            console.log("INSIDE FETCH", data.workouts)
             setWorkouts(data.workouts)
 
             if (globalFilterQuery) setWorkouts(data.workouts.filter(workout => globalFilterQuery === workout.type))
@@ -61,6 +63,8 @@ const Allworkoutspage = () => {
         fetch(`${url}${uid}/workout`, createMethod)
         .then(res => res.json())
         .then(data => setWorkouts(data))
+
+        navigate(`/`)
     };
 
     return (
@@ -75,27 +79,30 @@ const Allworkoutspage = () => {
                 values={values}
             />
             {workouts ? (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Calories</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {workouts.map((w) => {
-                            return (
-                                <Link to={`${w.id}`}>
-                                    <Workout workout={w}/>
-                                </Link>
-                            )
-                        })}
-                    </tbody>
-                </Table>
+                <>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Calories</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {workouts.map((w) => {
+                                return (
+                                    <Link to={`${w.id}`}>
+                                        <Workout workout={w}/>
+                                    </Link>
+                                )
+                            })}
+                        </tbody>
+                    </Table>
+                    <button onClick={(e) => navigate(`/`)}>Go To My Account</button>
+                </>
             ) : (
-                <h1>You have not added any workout!</h1>
+                <h1>You have not added any workouts!</h1>
             )}
         </div>
     );

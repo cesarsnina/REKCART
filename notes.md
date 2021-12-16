@@ -6,11 +6,9 @@ Jazmin - Workout.js, SingleWorkoutsPage.js (if everyone is not done yet - AllWor
 All functional components & hooks. No class components.
 
 12/15
-Add globalUser in all pages (All of us)
-    (Jazmin: SingleWorkoutsPage)
-    (Cesar: UserPage)
 User needs to be able to change their color & image (edit form on UserPage) (Cesar)
-Update links (Remove links at top and make sure user can go from SingleWorkoutPage to other pages)
+Update workout.json to have dates
+Fix rendering for handleCreate and handleUpdate
 
 Add styling (Cesar)
 
@@ -20,7 +18,6 @@ Remove unnecessary code
 
 
 Presentation:
-
 
 1. 12 -15 minutes firm. Tony will interrupt at 16 minutes to stop the presentation. 
 2. Demo of the entire application working - show off app functionality
