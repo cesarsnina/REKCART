@@ -20,11 +20,8 @@ const AllWorkoutsPage = () => {
     
     const [workouts, setWorkouts] = useState(null)
     const [isPending, setIsPending] = useState(false);
-<<<<<<< HEAD:src/components/AllWorkoutsPage2.js
-=======
     const [filterQuery, setFilterQuery] = useState('')
     const [updatedArray, setUpdatedArray] = useState(false)
->>>>>>> 21f3e92 (fix: render issue):src/components/AllWorkoutsPage.js
 
     const [values, setValues] = useState({
         type: '',
@@ -35,12 +32,8 @@ const AllWorkoutsPage = () => {
 
     useEffect(() => {
         handleFetch()
-<<<<<<< HEAD:src/components/AllWorkoutsPage2.js
-    }, [globalFilterQuery]) // Do I need to add a dependency?
-=======
         // getDataFromLocalStorage()
     }, [globalFilterQuery, updatedArray]) 
->>>>>>> 21f3e92 (fix: render issue):src/components/AllWorkoutsPage.js
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
@@ -59,12 +52,9 @@ const AllWorkoutsPage = () => {
     }  
 
     const handleCreate = (e) => {
-<<<<<<< HEAD:src/components/AllWorkoutsPage2.js
-=======
       e.preventDefault()
         console.log("HI FROM HANDLECREATE")
 
->>>>>>> 21f3e92 (fix: render issue):src/components/AllWorkoutsPage.js
         const createMethod = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
