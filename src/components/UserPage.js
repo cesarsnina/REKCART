@@ -21,7 +21,8 @@ const UserPage = () => {
     const fetchWorkout = async () => {
         try {
             const id = 4; // remove this id when routes are properly working
-            const response = await fetch(`http://localhost:3001/api/users/${id}`);
+            console.log("GLOBAL USER", globalUser)
+            const response = await fetch(`http://localhost:3001/api/users/${globalUser.id}`);
             const data = await response.json();
             setUser(data.user);
             setWorkout(data.workouts);
@@ -36,7 +37,7 @@ const UserPage = () => {
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col><Link to='/users/:id/workouts/:wid'> <Button>All Workout!</Button> </Link></Col>
+                <Col><Link to={`/users/${globalUser.id}/workouts/`}> <Button>View All My Workouts</Button> </Link></Col>
             </Row>
             <Row>
                 <Col><Workout workout={workout[0]}/></Col>

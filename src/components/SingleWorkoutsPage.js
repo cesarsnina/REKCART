@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, Link } from 'react';
 import { useNavigate } from "react-router-dom"
 import { Table } from 'react-bootstrap';
 
@@ -18,7 +18,7 @@ const Singleworkoutspage = () => {
         time: ''
     });
     const url = "http://localhost:3001/api/users/"
-    const uid = parseInt(window.location.pathname.split("/")[2]) // CAN'T SET THIS UP AS GLOBAL STATE YET
+    const uid = globalUser.id // CAN'T SET THIS UP AS GLOBAL STATE YET
     const wid = parseInt(window.location.pathname.split("/")[4])
     
 
@@ -58,6 +58,8 @@ const Singleworkoutspage = () => {
         fetch(`${url}${uid}/workout/${wid}`, updateMethod)
         .then(res => res.json())
         .then(data => setWorkout(data))
+
+        navigate(`/`)
     }
     
     const handleDelete = (e) => {
@@ -100,6 +102,8 @@ const Singleworkoutspage = () => {
                 </tbody>
             </Table>
             <button onClick={handleDelete}>Delete Workout</button>
+            <button onClick={(e) => navigate(`/users/${globalUser.id}/workouts/`)}>View All My Workouts</button>
+            <button onClick={(e) => navigate(`/`)}>Go To My Account</button>
         </div>
     );
 }
