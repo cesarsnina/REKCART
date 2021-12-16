@@ -39,7 +39,6 @@ const Filter = () => {
         <input type="radio" name="filterGroup" value="Running" onChange={handleChange}/>Running<br/>
         <input type="radio" name="filterGroup" value="Walking" onChange={handleChange}/>Walking<br/>
         <input type="radio" name="filterGroup" value="HIIT" onChange={handleChange}/>HIIT<br/>
-        <button type="submit">Filter</button>
         {console.log("globalFilterQuery", globalFilterQuery)}
       </form>
 
