@@ -65,7 +65,7 @@ router.post('/:id/workout', async(req, res, next) => {
         const workout = await Workout.create(req.body)
         await user.addWorkout(workout)
 
-        res.send(workout, "You have successfully created your account :).")
+        res.send(workout)
     } catch (error) {
         console.log("error from post/workouts.js:", error)
         next(error)
