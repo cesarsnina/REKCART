@@ -7,7 +7,7 @@ const Workout = ({workout}) => {
             {workout ? (
                 <>
                     <tr key={workout.id}>
-                        <td>{Moment(workout.date).format('mm-dd-yyyy')}</td>
+                        <td>{Moment(workout.date).format('MM-DD-YYYY')}</td>
                         <td>{workout.type}</td>
                         <td>{workout.calories}</td>
                         <td>{workout.time}</td>
