@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom"
 import Workout from './Workout';
 import WorkoutForm from './WorkoutForm';
 
 const Singleworkoutspage = () => {
 
     const url = "http://localhost:3001/api/users/"
-    const uid = window.location.pathname.split("/")[2]
+    const uid = parseInt(window.location.pathname.split("/")[2])
     const wid = parseInt(window.location.pathname.split("/")[4])
+    const navigate = useNavigate()
     const [workout, setWorkout] = useState(null)
     const [values, setValues] = useState({
         type: '',
@@ -19,6 +21,7 @@ const Singleworkoutspage = () => {
 
     useEffect(() => {
         handleFetch()
+        console.log("delete:", `${url}${uid}/workout/${wid}`)
     }, []) // SHOULD I ADD WORKOUT AS A DEPENDENCY?
     
     const handleFetch = () => {
@@ -27,34 +30,11 @@ const Singleworkoutspage = () => {
         fetch(`${url}${uid}`) // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
         .then(res => res.json())
         .then((data) => {
-            console.log("SW: inside fetch:", wid)
             let w = data.workouts.filter(w => w.id === wid)[0]
-            console.log("SW: inside fetch:", w)
             // need to iterate over data.workouts to find which object has the same id as wid
             setWorkout(w) // BEST WAY TO RETRIEVE THIS???
             setValues(w)
         })
-    }
-
-    // NEED handleUpdate method
-    const handleUpdate = (e) => {
-        
-    }
-    // NEED handleDelete method
-    const handleDelete = (e) => {
-        // retrieve workout we're deleting
-        // set new state
-        console.log("HELLO I'M INSIDE HANDLE DELETE")
-        const deleteMethod = {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        }
-
-        fetch(`${url}${uid}/workouts/${wid}`, deleteMethod)
-        .then(res => res.json())
-        .then(data => console.log("inside delete:", data))
     }
 
     const handleChange = (event) => {
@@ -63,9 +43,38 @@ const Singleworkoutspage = () => {
             [event.target.name]: event.target.value
         }))
         console.log("inside handleChange:", event.target.value)
-    }  
-
-    // NEED WORKOUT FORM COMPONENT TO EDIT
+    } 
+    
+    
+    const handleUpdate = (e) => {
+        console.log("HI FROM HANDLEUPDATE")
+        
+        const updateMethod = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values)
+        }   
+        console.log("INSIDE HANDLEUPDATE:", updateMethod.body)
+        fetch(`${url}${uid}/workout/${wid}`, updateMethod)
+        .then(res => res.json())
+        .then(data => setWorkout(data))
+    }
+    
+    const handleDelete = (e) => {
+        console.log("HELLO I'M INSIDE HANDLE DELETE")
+        const deleteMethod = {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        
+        fetch(`${url}${uid}/workout/${wid}`, deleteMethod)
+        .then(res => res.json())
+        .then(data => console.log("inside delete:", data))
+        
+        navigate('/')
+    }
 
     return (
         <div>
@@ -77,10 +86,8 @@ const Singleworkoutspage = () => {
                 handleChange={handleChange}
                 values={values}
             /> 
-            {console.log("hello")}
             <Workout workout={workout}/>
             <button onClick={handleDelete}>Delete Workout</button>
-            <h3>WORKOUT FORM WOULD GO HERE (pass down handleUpdate & user/workout id)</h3>
         </div>
     );
 }

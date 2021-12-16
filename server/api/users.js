@@ -4,16 +4,16 @@ const { User, Workout } = require('../model');
 
 //POST - login user
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body
-  const user = await User.findOne({
-    where: {
-      email: email,
-      password: password
-    }
-  })
+    const { email, password } = req.body
+    const user = await User.findOne({
+        where: {
+        email: email,
+        password: password
+        }
+    })
 
-  console.log(user)
-  res.json(user)
+    console.log(user)
+    res.json(user)
 })
 
 // GET - retrieve one user
@@ -30,7 +30,6 @@ router.get('/:id', async(req,res) => {
 // MAKE SURE TO IMPLEMENT REDIRECT FEATURE FOR BOTH POST AND PUT (SEE PUT)
 // POST - create user
 router.post('/create-account', async (req, res, next) => {
-  console.log(req.body)
     try {
         const user = await User.create(req.body)
         res.send("You have successfully created your account :).")
@@ -64,7 +63,7 @@ router.post('/:id/workout', async(req, res, next) => {
     try {
         const id = req.params.id;
         let user = await User.findByPk(id);
-
+        
         const workout = await Workout.create(req.body)
         await user.addWorkout(workout)
 
@@ -74,6 +73,20 @@ router.post('/:id/workout', async(req, res, next) => {
         next(error)
     }
 })
+
+// GET - retrieve workout
+router.get('/:id/workout/:wid', async (req, res, next) => {
+    try {
+        const { wid } = req.params;
+        const workout = await Workout.findByPk(wid)
+
+        res.json(workout)
+    } catch(error) {
+        console.log("error from get/users.js/workout:", error)
+        next(error)
+    }
+})
+
 
 // PUT - update workout
 router.put('/:id/workout/:wid', async(req, res, next) => { // :wid - workout id
@@ -86,24 +99,22 @@ router.put('/:id/workout/:wid', async(req, res, next) => { // :wid - workout id
                 id: wid
             }
         })
-        res.send(workout, "Your account has been successfully updated")
+        res.send(workout)
     } catch(error) {
-        console.log("error from put/users.js:", error)
+        console.log("error from put/users.js/workout:", error)
         next(error)
     }
 })
 
 // DELETE - delete workout
-router.delete(':id/workout/:wid', async (req, res) => {
+router.delete('/:id/workout/:wid', async (req, res, next) => {
+    console.log("INSIDE DELETE BACKEND")
     try {
-        const { id, wid } = req.params;
+        const { wid } = req.params;
 
-        // const user = await User.findByPk(id)
-        // CONFIRM THAT WHEN WORKOUT = DESTROYED, IT'S REMOVED FROM USER WORKOUTS
         const workout = await Workout.findByPk(wid)
         await workout.destroy()
         res.send("Workout has been successfully deleted.")
-        // REDIRECT: IF ON ALL WORKOUTS PAGE DON'T REDIRECT, IF ON SINGLE WORKOUT PAGE REDIRECT
     } catch(error) {
         console.log("error from delete/users.js:", error)
         next(error)

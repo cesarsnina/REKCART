@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
-import Workout from './Workout';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Table } from 'react-bootstrap';
+
+import Workout from './Workout2';
 import WorkoutForm from './WorkoutForm';
 
 const Allworkoutspage = () => {
@@ -25,6 +26,7 @@ const Allworkoutspage = () => {
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
+        // fetch(`${url}4`)
         .then(res => res.json())
         .then((data) => {
             console.log("url:", `${url}${uid}/workout`)
@@ -57,7 +59,7 @@ const Allworkoutspage = () => {
     };
 
     return (
-        <div>
+        <Container className="container-background">
             <h1>ALL WORKOUTS PAGE</h1>
             <WorkoutForm 
                 heading={"Add Workout"} 
@@ -67,19 +69,27 @@ const Allworkoutspage = () => {
                 values={values}
             />
             {workouts ? (
-                workouts.map((w) => {
-                    if (w) {
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Calories</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {workouts.map((w) => {
                         return (
-                            <Link to={`${w.id}`}>
-                                <Workout workout={w}/>
-                            </Link>
+                            <Workout userId={uid} workout={w}/>
                         )
-                    }
-                })
+                    })}
+                    </tbody>
+                </Table>
             ) : (
-                <h1></h1>
+                <h1>You have not added any workout!</h1>
             )}
-        </div>
+        </Container>
     );
 }
 

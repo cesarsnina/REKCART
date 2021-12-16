@@ -4,3 +4,19 @@ Eric - WorkoutForm.js
 Jazmin - Workout.js, SingleWorkoutsPage.js (if everyone is not done yet - AllWorkoutsPage.js)
 
 All functional components & hooks. No class components.
+
+12/15
+Add globalUser in all pages (All of us)
+Fix formatting of date (Eric)
+Set up Filter functionality (Danny)
+User needs to be able to change their color & image (edit form on UserPage) (Cesar)
+Create tests
+
+Add styling (Cesar)
+
+Remove console.logs
+Remove unnecessary code
+
+
+Presentation:
+How did we handle working on time constraints

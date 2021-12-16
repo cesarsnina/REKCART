@@ -5,7 +5,7 @@ import { Button, Container, Row, Col, Table } from 'react-bootstrap';
 import { UserContext } from './UserContext';
 import UserPanel from './UserPanel';
 import WorkoutForm from './WorkoutForm';
-import Workout from './Workout';
+import Workout from './Workout2';
 
 import './UserPage.css';
 
@@ -38,36 +38,31 @@ const UserPage = () => {
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col><Link to='/users/:id/workouts/:wid'> <Button className="all-workout-button">All Workout!</Button> </Link></Col>
+                <Col><Link to={`/users/${user.id}/workouts`}> <Button className="all-workout-button">All Workout!</Button> </Link></Col>
             </Row>
             <Row>
                 <Col>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Calories</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <Workout workout={workout}/>
-
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                    </tbody>
-                </Table>
+                {workout ? (
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Calories</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {workout.map(ele => {
+                            return (
+                                <Workout userId={user.id} workout={ele}/>
+                            )
+                        })}
+                        </tbody>
+                    </Table>
+                ) : (
+                    <h1>You have not added any workout!</h1>
+                )}
                 </Col>
             </Row>
         </Container>
