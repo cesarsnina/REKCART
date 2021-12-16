@@ -11,8 +11,6 @@ router.post('/login', async (req, res) => {
         password: password
         }
     })
-
-    console.log(user)
     res.json(user)
 })
 
@@ -20,9 +18,9 @@ router.post('/login', async (req, res) => {
 router.get('/:id', async(req,res) => {
     const id = req.params.id;
     let user = await User.findByPk(id);
-    
     const userWorkouts = await user.getWorkouts()
     const data = {user: user, workouts: userWorkouts}
+    console.log("BACKEND USER workouts", data)
 
     res.json(data); 
 });
