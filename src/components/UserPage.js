@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button, Container, Row, Col, Table } from 'react-bootstrap';
+import { Container, Row, Col, Button, Table, Form } from 'react-bootstrap';
 
 import { UserContext } from './UserContext';
 import UserPanel from './UserPanel';
@@ -32,13 +32,30 @@ const UserPage = () => {
         }
     }
 
+    const setColor = (e) => {
+        document.body.style.backgroundColor = e.target.value;
+    }
+
     return (
-        <Container className="container-background">
+        <Container className="UserPage-container">
             <Row>
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col><Link to={`/users/${user.id}/workouts`}> <Button className="all-workout-button">All Workout!</Button> </Link></Col>
+                <Col><Link to={`/users/${user.id}/workouts`}> 
+                    <Button className="all-workout-button">All Workout!</Button> </Link>
+                </Col>
+
+                <Col md="auto">
+                    <Form.Label className="color-label" htmlFor="color-input">Choose your color</Form.Label>
+                    <Form.Control
+                        type="color"
+                        id="color-input"
+                        defaultValue="#0400FF"
+                        title="Choose your color"
+                        onChange={setColor}
+                    />
+                </Col>
             </Row>
             <Row>
                 <Col>

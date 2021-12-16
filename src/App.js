@@ -3,7 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import AllWorkoutsPage from './components/AllWorkoutsPage2';
 import Filter from './components/Filter';
 import Login from './components/Login';
-import SingleWorkoutsPage from './components/SingleWorkoutsPage';
+import SingleWorkoutsPage from './components/SingleWorkoutsPage2';
 import Signup from './components/Signup';
 import UserPanel from './components/UserPanel';
 import Workout from './components/Workout';

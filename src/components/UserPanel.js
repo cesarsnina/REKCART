@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 
 import './UserPanel.css';
 

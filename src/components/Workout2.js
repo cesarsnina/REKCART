@@ -3,7 +3,7 @@ import Moment from 'moment';
 
 const Workout = ({workout, userId}) => {
     const { id, date, type, calories, time } = workout;
-console.log(userId)
+
     const handleClick = (id) => {
         window.location.href=`/users/${userId}/workouts/${id}`
     }

@@ -1,4 +1,16 @@
+.UserPage-container {
+    background-color: white;
+}
+
 .all-workout-button {
     width: 20%;
     margin: 10px 0;
+}
+
+#color-input {
+    width: 250px;
+}
+
+.color-label {
+    margin-top: 0px;
 }

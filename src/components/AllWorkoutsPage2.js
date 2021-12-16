@@ -5,6 +5,8 @@ import { Container, Table } from 'react-bootstrap';
 import Workout from './Workout2';
 import WorkoutForm from './WorkoutForm';
 
+import './AllWorkoutsPage2.css';
+
 const Allworkoutspage = () => {
     const url = "http://localhost:3001/api/users/" // :id/workouts
     // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
@@ -26,13 +28,15 @@ const Allworkoutspage = () => {
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
-        // fetch(`${url}4`)
         .then(res => res.json())
         .then((data) => {
             console.log("url:", `${url}${uid}/workout`)
             console.log("inside ALLW - handleFetch:", data.workouts)
             // data.workouts = (4) [{...}, {...}, {...}, {...}]
+            // if filterQuery === null
             setWorkouts(data.workouts)
+            // else 
+            // data.workouts.filer(workout => workout.type === filterQuery)
         })
     }
 
@@ -59,7 +63,7 @@ const Allworkoutspage = () => {
     };
 
     return (
-        <Container className="container-background">
+        <Container className="AllWorkoutsPage-container">
             <h1>ALL WORKOUTS PAGE</h1>
             <WorkoutForm 
                 heading={"Add Workout"} 
