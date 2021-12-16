@@ -13,13 +13,13 @@ const UserPage = () => {
     const [workout, setWorkout] = useState([]);
     const {globalUser, setGlobalUser} = useContext(UserContext);
     const {globalFilterQuery, setGlobalFilterQuery} = useContext(FilterQueryContext)
-    const [image, setImage] = useState({});
+    const [image, setImage] = useState();
     const { id } = useParams();
 
     useEffect(() => {
         fetchWorkout();
         clearGlobalFilterQuery()
-    }, [id]);
+    }, [id, image]);
 
     const clearGlobalFilterQuery = () => {
         setGlobalFilterQuery("")
@@ -48,6 +48,7 @@ const UserPage = () => {
             }
             const id = globalUser.id;
             const response = await fetch(`http://localhost:3001/api/users/${id}`, updateMethod)
+            setImage(response)
             // const data = await response.json();
             console.log('Data: ', response);
         } catch (error) {
