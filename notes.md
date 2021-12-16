@@ -9,6 +9,7 @@ All functional components & hooks. No class components.
 Add globalUser in all pages (All of us)
     (Jazmin: SingleWorkoutsPage)
     (Danny: AllWorkoutsPage)
+    (Cesar: UserPage)
 Set up Filter functionality (Danny)
 User needs to be able to change their color & image (edit form on UserPage) (Eric)
 Update links
