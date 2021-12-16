@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AllWorkoutsPage from './components/AllWorkoutsPage';
 import Login from './components/Login';
-import SingleWorkoutsPage from './components/SingleWorkoutsPage';
+import SingleWorkoutsPage from './components/SingleWorkoutsPage2';
 import Signup from './components/Signup';
 import UserPage from './components/UserPage';
 import {UserContext, FilterQueryContext} from './components/UserContext.js'

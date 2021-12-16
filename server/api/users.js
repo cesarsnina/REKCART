@@ -105,7 +105,7 @@ router.put('/:id/workout/:wid', async(req, res, next) => { // :wid - workout id
 })
 
 // DELETE - delete workout
-router.delete('/:id/workout/:wid', async (req, res) => {
+router.delete('/:id/workout/:wid', async (req, res, next) => {
     console.log("INSIDE DELETE BACKEND")
     try {
         const { wid } = req.params;
