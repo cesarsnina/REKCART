@@ -13,12 +13,11 @@ const Allworkoutspage = () => {
 
     const url = "http://localhost:3001/api/users/" // :id/workouts
     // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
-    const uid = parseInt(window.location.pathname.split("/")[2]) // BAD PRACTICE: RETRIEVING FROM URL
+    const uid = globalUser.id // BAD PRACTICE: RETRIEVING FROM URL
     
     const [workouts, setWorkouts] = useState(null)
     const [isPending, setIsPending] = useState(false);
     const [filterQuery, setFilterQuery] = useState('')
-    const [isFilterReady, setIsFilterReady] = useState(false)
 
     const [values, setValues] = useState({
         type: '',
@@ -29,26 +28,17 @@ const Allworkoutspage = () => {
 
     useEffect(() => {
         handleFetch()
-        filterWorkouts(workouts)
-    }, [globalFilterQuery, workouts]) 
+    }, [globalFilterQuery]) 
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
         .then(res => res.json())
         .then((data) => {
+          console.log("INSIDE FETCH", data.workouts)
+            setWorkouts(data.workouts)
 
-            setFilterQuery(globalFilterQuery)
-              setWorkouts(data.workouts)
-            
+            if (globalFilterQuery) setWorkouts(data.workouts.filter(workout => globalFilterQuery === workout.type))
         })
-    }
-
-    const filterWorkouts = (workouts) => {
-      if (globalFilterQuery !== null) setIsFilterReady(true)
-      let filteredArray = undefined
-      if (globalFilterQuery !== null && isFilterReady) filteredArray = (workouts.filter(workout => globalFilterQuery === workout.type))
-      setWorkouts(filteredArray)
-
     }
 
     const handleChange = (event) => {
@@ -99,7 +89,6 @@ const Allworkoutspage = () => {
                             return (
                                 <Link to={`${w.id}`}>
                                     <Workout workout={w}/>
-                                    {console.log("insidetable:", w)}
                                 </Link>
                             )
                         })}
