@@ -1,15 +1,15 @@
 {
     "workouts": [
-        {"type": "Weight-Lifting", "calories": 100, "date": "", "time": 45, "UserId": 1 },
-        {"type": "Running", "calories": 100, "date": "", "time": 120, "UserId": 1 },
-        {"type": "Walking", "calories": 100, "date": "", "time": 10, "UserId": 2 },
-        {"type": "HIIT", "calories": 100, "date": "", "time": 20, "UserId": 2 },
-        {"type": "Weight-Lifting", "calories": 100, "date": "", "time": 15, "UserId": 2 },
-        {"type": "Running", "calories": 100, "date": "", "time": 5, "UserId": 3 },
-        {"type": "Walking", "calories": 100, "date": "", "time": 30, "UserId": 4 },
-        {"type": "HIIT", "calories": 100, "date": "", "time": 5, "UserId": 4 },
-        {"type": "Weight-Lifting", "calories": 100, "date": "", "time": 1, "UserId": 4 },
-        {"type": "Running", "calories": 100, "date": "", "time": 25, "UserId": 4 }
+        {"type": "Weight-Lifting", "calories": 100, "date": "12.09.21", "time": 45, "UserId": 1 },
+        {"type": "Running", "calories": 100, "date": "10.10.21", "time": 120, "UserId": 1 },
+        {"type": "Walking", "calories": 100, "date": "11.10.21", "time": 10, "UserId": 2 },
+        {"type": "HIIT", "calories": 100, "date": "Dec 12, 2021", "time": 20, "UserId": 2 },
+        {"type": "Weight-Lifting", "calories": 100, "date": "December 13, 2021", "time": 15, "UserId": 2 },
+        {"type": "Running", "calories": 100, "date": "12.14.21", "time": 5, "UserId": 3 },
+        {"type": "Walking", "calories": 100, "date": "12.09.21", "time": 30, "UserId": 4 },
+        {"type": "HIIT", "calories": 100, "date": "12.10.21", "time": 5, "UserId": 4 },
+        {"type": "Weight-Lifting", "calories": 100, "date": "12.11.21", "time": 1, "UserId": 4 },
+        {"type": "Running", "calories": 100, "date": "12.12.21", "time": 25, "UserId": 4 }
     ]
 }
 
