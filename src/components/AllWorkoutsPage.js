@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext, FilterQueryContext } from "./UserContext.js"
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
+import  Filter  from "./Filter"
 
 import Workout from './Workout';
 import WorkoutForm from './WorkoutForm';
 
 const Allworkoutspage = () => {
+  const {globalUser, setGlobalUser} = useContext(UserContext)
+  const {globalFilterQuery, setGlobalFilterQuery} = useContext(FilterQueryContext)
+
     const url = "http://localhost:3001/api/users/" // :id/workouts
     // CHANGE TO RETRIEVE USER ID FROM useContext GLOBAL STATE
     const uid = parseInt(window.location.pathname.split("/")[2]) // BAD PRACTICE: RETRIEVING FROM URL
     
     const [workouts, setWorkouts] = useState(null)
     const [isPending, setIsPending] = useState(false);
+    const [filterQuery, setFilterQuery] = useState('')
+    const [isFilterReady, setIsFilterReady] = useState(false)
 
     const [values, setValues] = useState({
         type: '',
@@ -22,20 +29,26 @@ const Allworkoutspage = () => {
 
     useEffect(() => {
         handleFetch()
-    }, []) // Do I need to add a dependency?
+        filterWorkouts(workouts)
+    }, [globalFilterQuery, workouts]) 
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
         .then(res => res.json())
         .then((data) => {
-            console.log("url:", `${url}${uid}/workout`)
-            console.log("inside ALLW - handleFetch:", data.workouts)
-            // data.workouts = (4) [{...}, {...}, {...}, {...}]
-            // if filterQuery === null
-            setWorkouts(data.workouts)
-            // else 
-            // data.workouts.filer(workout => workout.type === filterQuery)
+
+            setFilterQuery(globalFilterQuery)
+              setWorkouts(data.workouts)
+            
         })
+    }
+
+    const filterWorkouts = (workouts) => {
+      if (globalFilterQuery !== null) setIsFilterReady(true)
+      let filteredArray = undefined
+      if (globalFilterQuery !== null && isFilterReady) filteredArray = (workouts.filter(workout => globalFilterQuery === workout.type))
+      setWorkouts(filteredArray)
+
     }
 
     const handleChange = (event) => {
@@ -63,6 +76,7 @@ const Allworkoutspage = () => {
     return (
         <div>
             <h1>ALL WORKOUTS PAGE</h1>
+            <Filter/>
             <WorkoutForm 
                 heading={"Add Workout"} 
                 submit={handleCreate} 
