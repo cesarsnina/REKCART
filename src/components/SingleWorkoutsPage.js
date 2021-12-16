@@ -18,7 +18,7 @@ const Singleworkoutspage = () => {
         time: ''
     });
     const url = "http://localhost:3001/api/users/"
-    const uid = parseInt(window.location.pathname.split("/")[2]) // CAN'T SET THIS UP AS GLOBAL STATE YET
+    const uid = globalUser.id // CAN'T SET THIS UP AS GLOBAL STATE YET
     const wid = parseInt(window.location.pathname.split("/")[4])
     
 

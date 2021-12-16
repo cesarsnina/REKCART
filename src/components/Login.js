@@ -40,7 +40,7 @@ const RenderLoginPage = () => {
         return data
       })
       setGlobalUser(user)
-      navigate('/userpage')
+      navigate('/')
   }
 
   const getCreateAccountPage = async (event) => {
