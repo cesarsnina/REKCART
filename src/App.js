@@ -32,7 +32,7 @@ const Header = () => {
 }
 
 const App = () => {
-  const [globalUser, setGlobalUser] = useState('state from app')
+  const [globalUser, setGlobalUser] = useState(null)
   const [globalFilterQuery, setGlobalFilterQuery] = useState('')
   return (
     <>
