@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Container, Row, Col, Button, Table, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Table, Form, FloatingLabel } from 'react-bootstrap';
 
 import { UserContext } from './UserContext';
 import UserPanel from './UserPanel';
@@ -12,7 +12,8 @@ import './UserPage.css';
 const UserPage = () => {
     const [user, setUser] = useState({});
     const [workout, setWorkout] = useState([]);
-    const {globalUser, setGlobalUser} = useContext(UserContext)
+    const {globalUser, setGlobalUser} = useContext(UserContext);
+    const [image, setImage] = useState({});
     const { id } = useParams();
 
     useEffect(() => {
@@ -32,7 +33,26 @@ const UserPage = () => {
         }
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        console.log('Event: ', image)
+        try {
+            const updateMethod = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({image: image})
+            }
+            const id = globalUser.id;
+            const response = await fetch(`http://localhost:3001/api/users/${id}`, updateMethod)
+            // const data = await response.json();
+            console.log('Data: ', response);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const setColor = (e) => {
+        setGlobalUser({globalUser, color: e.target.value})
         document.body.style.backgroundColor = e.target.value;
     }
 
@@ -42,11 +62,31 @@ const UserPage = () => {
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col><Link to={`/users/${user.id}/workouts`}> 
+                <Col md={3}><Link to={`/users/${user.id}/workouts`}> 
                     <Button className="all-workout-button">All Workout!</Button> </Link>
                 </Col>
+                <Col md={6}>
+                    <Form onSubmit={handleSubmit}>
+                    <Row>
+                        <Col md={8}>
+                            <FloatingLabel controlId="floatingInput"
+                                            label="Add Image Address to update">
+                                <Form.Control type="text"
+                                        value={image}
+                                        onChange={e=>setImage(e.target.value)}
+                                        placeholder="https://www.thehoth.com/wp-content/uploads/2019/04/hoth-ranktracker-icon-002.png"/>
+                            </FloatingLabel>
+                        </Col>
+                        <Col md={4}>
+                            <Button className="all-workout-button" type="submit">
+                                Submit
+                            </Button>
+                        </Col>
+                    </Row>
+                    </Form>
+                </Col>
 
-                <Col md="auto">
+                <Col md={3}>
                     <Form.Label className="color-label" htmlFor="color-input">Choose your color</Form.Label>
                     <Form.Control
                         type="color"
