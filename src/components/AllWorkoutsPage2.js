@@ -20,6 +20,8 @@ const AllWorkoutsPage = () => {
     
     const [workouts, setWorkouts] = useState(null)
     const [isPending, setIsPending] = useState(false);
+    const [filterQuery, setFilterQuery] = useState('')
+    const [updatedArray, setUpdatedArray] = useState(false)
 
     const [values, setValues] = useState({
         type: '',
@@ -30,7 +32,8 @@ const AllWorkoutsPage = () => {
 
     useEffect(() => {
         handleFetch()
-    }, [globalFilterQuery]) // Do I need to add a dependency?
+        // getDataFromLocalStorage()
+    }, [globalFilterQuery, updatedArray]) 
     
     const handleFetch = () => {
         fetch(`${url}${uid}`)
@@ -49,6 +52,9 @@ const AllWorkoutsPage = () => {
     }  
 
     const handleCreate = (e) => {
+      e.preventDefault()
+        console.log("HI FROM HANDLECREATE")
+
         const createMethod = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -57,9 +63,13 @@ const AllWorkoutsPage = () => {
 
         fetch(`${url}${uid}/workout`, createMethod)
         .then(res => res.json())
-        .then(data => setWorkouts(data))
+        .then(data => {
+          workouts.push(data)
+          setUpdatedArray(true)
+          setWorkouts(workouts)
+        })
 
-        navigate(`/`)
+        navigate(`/users/${globalUser.id}/workouts/`)
     };
 
     return (
