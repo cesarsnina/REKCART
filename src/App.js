@@ -11,7 +11,6 @@ import WorkoutForm from './components/WorkoutForm';
 import UserPage from './components/UserPage';
 import {UserContext, FilterQueryContext} from './components/UserContext.js'
 
-
 import './App.css';
 
 const Header = () => {
