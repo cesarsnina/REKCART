@@ -22,9 +22,9 @@ const UserPage = () => {
 
     const fetchWorkout = async () => {
         try {
-            const id = 4; // TESTING PURPOSE ONLY
-            // const id = globalUser.id;
-            const response = await fetch(`http://localhost:3001/api/users/${id}`);
+            const id = 4; // remove this id when routes are properly working
+            console.log("GLOBAL USER", globalUser)
+            const response = await fetch(`http://localhost:3001/api/users/${globalUser.id}`);
             const data = await response.json();
             setUser(data.user);
             setWorkout(data.workouts);
@@ -62,8 +62,8 @@ const UserPage = () => {
                 <Col><UserPanel user={user} /></Col>
             </Row>
             <Row>
-                <Col md={3}><Link to={`/users/${user.id}/workouts`}> 
-                    <Button className="all-workout-button">All Workout!</Button> </Link>
+                <Col md={3}><Link to={`/users/${globalUser.id}/workouts`}> 
+                    <Button className="all-workout-button">View all my workouts</Button> </Link>
                 </Col>
                 <Col md={6}>
                     <Form onSubmit={handleSubmit}>

@@ -6,26 +6,18 @@ Jazmin - Workout.js, SingleWorkoutsPage.js (if everyone is not done yet - AllWor
 All functional components & hooks. No class components.
 
 12/15
-Add globalUser in all pages (All of us)
-    (Jazmin: SingleWorkoutsPage)
-    (Danny: AllWorkoutsPage)
-    (Cesar: UserPage)
-Set up Filter functionality (Danny)
-User needs to be able to change their color & image (edit form on UserPage) (Eric)
-Update links
+User needs to be able to change their color & image (edit form on UserPage) (Cesar)
+Update workout.json to have dates
+Fix rendering for handleCreate and handleUpdate
 
 Add styling (Cesar)
 
+Merge all code together
 Remove console.logs
 Remove unnecessary code
 
 
 Presentation:
-Demo (Go through workflow)
-Each person talks about the code they were in charge of
-How did we handle working on time constraints
-Extra functionality?
-
 
 1. 12 -15 minutes firm. Tony will interrupt at 16 minutes to stop the presentation. 
 2. Demo of the entire application working - show off app functionality

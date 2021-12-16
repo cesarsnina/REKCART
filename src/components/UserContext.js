@@ -1,4 +1,4 @@
 import {createContext} from 'react'
 
-export const UserContext = createContext('hello from context')
+export const UserContext = createContext(null)
 export const FilterQueryContext = createContext('')

@@ -29,7 +29,10 @@ User.init({
       type: DataTypes.STRING,
       defaultValue: 'blue'
     },
-    image: DataTypes.STRING
+    image: {
+      type: DataTypes.STRING,
+      defaultValue: "https://www.thehoth.com/wp-content/uploads/2019/04/hoth-ranktracker-icon-002.png"
+    }
 },{
     sequelize: db,
     timestamps: false,
