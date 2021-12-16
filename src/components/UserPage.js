@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Container, Row, Col, Button, Table, Form, FloatingLabel } from 'react-bootstrap';
+import { UserContext, FilterQueryContext } from "./UserContext.js"
 
-import { UserContext } from './UserContext';
 import UserPanel from './UserPanel';
-import WorkoutForm from './WorkoutForm';
 import Workout from './Workout2';
 
 import './UserPage.css';
@@ -13,16 +12,21 @@ const UserPage = () => {
     const [user, setUser] = useState({});
     const [workout, setWorkout] = useState([]);
     const {globalUser, setGlobalUser} = useContext(UserContext);
+    const {globalFilterQuery, setGlobalFilterQuery} = useContext(FilterQueryContext)
     const [image, setImage] = useState({});
     const { id } = useParams();
 
     useEffect(() => {
         fetchWorkout();
+        clearGlobalFilterQuery()
     }, [id]);
 
+    const clearGlobalFilterQuery = () => {
+        setGlobalFilterQuery("")
+    }
+    
     const fetchWorkout = async () => {
         try {
-            const id = 4; // remove this id when routes are properly working
             console.log("GLOBAL USER", globalUser)
             const response = await fetch(`http://localhost:3001/api/users/${globalUser.id}`);
             const data = await response.json();

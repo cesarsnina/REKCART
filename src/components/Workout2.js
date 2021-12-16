@@ -1,27 +1,26 @@
 import React from 'react';
 import Moment from 'moment';
+import { useNavigate } from "react-router-dom";
 
-const Workout = ({workout, userId}) => {
-    const { id, date, type, calories, time } = workout;
-
-    const handleClick = (id) => {
-        window.location.href=`/users/${userId}/workouts/${id}`
-    }
+const Workout2 = ({workout, userId}) => {
+    const navigate = useNavigate()
 
     return (
-        <tr key={id} onClick={() => handleClick(id)}>
-            <td>{Moment(date).format('mm-dd-yyyy')}</td>
-            <td> {type}</td>
-            <td>{calories}</td>
-            <td>{time}</td>
-        </tr>
+        <>
+            {workout ? (
+                <>
+                    <tr key={workout.id} onClick={() =>  navigate(`${workout.id}`)}>
+                        <td>{Moment(workout.date).format('MM-DD-YYYY')}</td>
+                        <td> {workout.type}</td>
+                        <td>{workout.calories}</td>
+                        <td>{workout.time}</td>
+                    </tr>
+                </>
+            ) : (
+                <h1>"This workout no longer exists..."</h1>
+            )}
+        </>
     )
 }
 
-export default Workout;
-
-
-// useEffect:
-// 2nd argument = array of dependencies
-// if 2nd argument = empty array, will only run once - when component's initialized
-// if 2nd argument = state, runs whenever state listed inside array is changed
+export default Workout2;

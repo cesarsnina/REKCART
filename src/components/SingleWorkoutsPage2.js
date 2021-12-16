@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Table } from 'react-bootstrap';
 
 import { UserContext } from './UserContext';
-import Workout from './Workout';
+import Workout2 from './Workout2';
 import WorkoutForm from './WorkoutForm';
 
 import './SingleWorkoutsPage2.css';
@@ -16,17 +16,16 @@ const Singleworkoutspage = () => {
     const [values, setValues] = useState({
         type: '',
         calories: '',
-        date: undefined,
+        date: '',
         time: ''
     });
     const url = "http://localhost:3001/api/users/"
-    const uid = parseInt(window.location.pathname.split("/")[2]) // CAN'T SET THIS UP AS GLOBAL STATE YET
+    const uid = globalUser.id
     const wid = parseInt(window.location.pathname.split("/")[4])
     
 
     useEffect(() => {
         handleFetch()
-        console.log("global user:", globalUser)
     }, [])
     
     const handleFetch = () => {
@@ -44,7 +43,6 @@ const Singleworkoutspage = () => {
             ...values,
             [event.target.name]: event.target.value
         }))
-        console.log("inside handleChange:", event.target.value)
     } 
     
     
@@ -60,10 +58,11 @@ const Singleworkoutspage = () => {
         fetch(`${url}${uid}/workout/${wid}`, updateMethod)
         .then(res => res.json())
         .then(data => setWorkout(data))
+
+        navigate('/')
     }
     
     const handleDelete = (e) => {
-        console.log("HELLO I'M INSIDE HANDLE DELETE")
         const deleteMethod = {
             method: 'DELETE',
             headers: {
@@ -73,11 +72,11 @@ const Singleworkoutspage = () => {
         
         fetch(`${url}${uid}/workout/${wid}`, deleteMethod)
         .then(res => res.json())
-        .then(data => console.log("inside delete:", data))
+        .then(data => console.log("Successfully deleted data"))
         
         navigate('/')
     }
-
+    console.log("hi from Single Page")
     return (
         <Container className="SingleWorkoutsPage-container">
             <h1>SINGLE WORKOUT PAGE</h1>
@@ -98,10 +97,12 @@ const Singleworkoutspage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <Workout userId={uid} workout={workout}/>
+                    <Workout2 userId={uid} workout={workout}/>
                 </tbody>
             </Table>
             <button onClick={handleDelete}>Delete Workout</button>
+            <button onClick={(e) => navigate(`/users/${globalUser.id}/workouts/`)}>View All My Workouts</button>
+            <button onClick={(e) => navigate(`/`)}>Go To My Account</button>
         </Container>
     );
 }
